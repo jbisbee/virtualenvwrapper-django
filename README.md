@@ -8,7 +8,9 @@ Django Project Friendly virtualenvwrapper postactive and postdeactive Bash Files
 
 This gives you manage alias which is equvilant to
 
-  alias manage="python /absolute/path/to/your/django/projects/manage.py"
+```bash
+alias manage="python /absolute/path/to/your/django/projects/manage.py"
+```
 
 which allows you to run manage.py from anywhere once you load our virtual env
 
