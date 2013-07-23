@@ -1,4 +1,4 @@
-# django-virtualenvwrapper #
+# virtualenvwrapper-django #
 
 Django Project Friendly virtualenvwrapper postactive and postdeactive Bash Files
 
