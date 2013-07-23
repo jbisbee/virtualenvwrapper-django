@@ -1,0 +1,76 @@
+#!/bin/bash
+# This hook is run after every virtualenv is activated.
+
+# uncomment set -x and set +x below to turn on bash script debugging
+#set -x
+
+# I tie my project name with my virtualenv name.  If you don't you'll need to 
+# create a lookup table between virtual env name and django project name
+virtual_env_name=$(basename $VIRTUAL_ENV)
+django_project_name=${virtual_env_name}
+
+# You will need to customize django_project_dir to wherever you keep your project src. 
+django_project_dir=$(readlink -f "$HOME/src/$django_project_name")
+
+# set DJANGO_VIRTUALENVWRAPPER_USER in your .bashrc file if your env USER doesn't
+# match your settings user (ie you're using vagrant)
+if [[ -n "$DJANGO_VIRTUALENVWRAPPER_USER" ]]
+then
+    django_user=${DJANGO_VIRTUALENVWRAPPER_USER}
+else
+    django_user=${USER}
+fi
+
+function determine_django_settings_module {
+    dir=${1}
+    user=${2}
+ 
+    settings_dir_name=$(find  ${dir} -name "settings" -type d)
+    if [ $settings_dir_name ]; then
+        settings_dir_user=$(find ${settings_dir_name} -name "$user.py" -type f)
+        settings_dir_dev=$(find ${settings_dir_name} -name "dev.py" -type f)
+    fi
+
+    settings_default=$(find ${dir} -name "settings.py" -type f)
+
+    for django_settings_file in $settings_dir_user $settings_dir_dev $settings_default
+    do
+        if [ ${django_settings_file} ]; then
+            break
+        fi
+    done
+
+    django_settings_module=${django_settings_file#$dir/}
+    django_settings_module=${django_settings_module%.py}
+    django_settings_module=`echo $django_settings_module | sed 's/\//\./g'`
+
+    echo ${django_settings_module}
+}
+
+function determine_djanngo_manage_py {
+    dir=${1}
+
+    echo $(find ${dir} -name "manage.py" -type f)
+}
+
+if [ -d "$django_project_dir" ]
+then
+    django_settings_module=$(determine_django_settings_module ${django_project_dir} ${django_user})
+    django_manage_py=$(determine_djanngo_manage_py ${django_project_dir})
+
+    alias manage="python $django_manage_py"
+    export DJANGO_SETTINGS_MODULE="$django_settings_module"
+    cd ${django_project_dir}
+else
+    unset django_manage_py
+    unset django_settings_module
+fi
+
+#set +x
+
+echo "django_project_name: $django_project_name"
+echo "django_user: $django_user"
+echo "django_project_dir: $django_project_dir"
+echo "django_manage_py: $django_manage_py"
+echo "django_settings_module: $django_settings_module"
+

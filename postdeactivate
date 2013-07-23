@@ -1,0 +1,10 @@
+#!/bin/bash
+# This hook is run after every virtualenv is deactivated.
+
+# Uncomment set -x and set +x to debug
+#set -x
+
+unset DJANGO_SETTINGS_MODULE
+unalias manage >/dev/null 2>/dev/null
+
+#set +x
