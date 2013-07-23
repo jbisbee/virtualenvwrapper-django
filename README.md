@@ -4,7 +4,7 @@ Django Project Friendly virtualenvwrapper postactive and postdeactive Bash Files
 
 ## postactive Gives You ##
 
-_manage Bash Alias_
+**manage Bash Alias**
 
 This gives you manage alias which is equvilant to
 
@@ -12,7 +12,7 @@ This gives you manage alias which is equvilant to
 
 which allows you to run manage.py from anywhere once you load our virtual env
 
-_Autoset Your Django Project's DJANGO\_SETTINGS\_MODULE Environment Variable_
+**Autoset Your Django Project's DJANGO\_SETTINGS\_MODULE Environment Variable**
 
 The incluced postactivate hook introspects your project looking for a settings file in the following
 places
@@ -30,7 +30,7 @@ be set without passing in --settings or getting the warning reminding you to set
 
 ## postdeactivate Gives You ##
 
-_Cleans up after postactive_
+**Cleans up after postactive**
 
 1. remove manage alias (silently incase it didn't get set)
 2. unsets DJANGO\_SETTINGS\_MODULE
