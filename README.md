@@ -28,29 +28,21 @@ jbisbee@tacquito:~$ echo $WORKON_HOME
 export DJANGO_PROJECTS_SRC_DIR=$HOME/src
 ```
 
-**3. Pick a directroy where you want checkout to live (~/bin, ~/src, etc)**
+**3. Checkout into that dir**
 
 ```console
-jbisbee@tacquito:~$ export VIRTUALENVWRAPPER_DJANGO_DIR=~/src
-jbisbee@tacquito:~$ echo $VIRTUALENVWRAPPER_DJANGO_DIR
-/home/jbisbee/src
-```
-
-**4. Checkout into that dir**
-
-```console
-jbisbee@tacquito:~$ cd $VIRTUALENVWRAPPER_DJANGO_DIR
+jbisbee@tacquito:~$ cd $DJANGO_PROJECTS_SRC_DIR
 jbisbee@tacquito:~/src$ git clone https://github.com/jbisbee/virtualenvwrapper-django.git
 ```
 
-**5. Append supplement existings hooks with bash source commands to the ones within the project**
+**4. Append supplement existings hooks with bash source commands to the ones within the project**
 
 ```console
-jbisbee@tacquito:~/src$ echo "source $VIRTUALENVWRAPPER_DJANGO_DIR/virtualenvwrapper_django/postactivate" >> $WORKON_HOME/postactivate
-jbisbee@tacquito:~/src$ echo "source $VIRTUALENVWRAPPER_DJANGO_DIR/virtualenvwrapper_django/postdeactivate" >> $WORKON_HOME/postdeactivate
+jbisbee@tacquito:~/src$ echo "source $DJANGO_PROJECTS_SRC_DIR/virtualenvwrapper-django/postactivate" >> $WORKON_HOME/postactivate
+jbisbee@tacquito:~/src$ echo "source $DJANGO_PROJECTS_SRC_DIR/virtualenvwrapper-django/postdeactivate" >> $WORKON_HOME/postdeactivate
 ```
 
-**6. Now cat each file to make sure you accidently append it twice. Sould look something like this.**
+**5. Now cat each file to make sure you accidently append it twice. Sould look something like this.**
 
 ```console
 jbisbee@tacquito:~/src$ cat $WORKON_HOME/postactivate
@@ -65,7 +57,7 @@ jbisbee@tacquito:~/src$ cat $WORKON_HOME/postdeactivate
 source /home/jbisbee/src/virtualenvwrapper-django/postdeactivate
 ```
 
-**7. You're done!**
+**6. You're done!**
 
 *__Note:__ If you run into any problems with these install instructions let me know.  I tried to be
 generic as possible without having to maintain an install script that hides the logic form you (and
