@@ -40,7 +40,7 @@ jbisbee@tacquito:~/src$ echo "source $VIRTUALENVWRAPPER_DJANGO_DIR/virtualenvwra
 jbisbee@tacquito:~/src$ echo "source $VIRTUALENVWRAPPER_DJANGO_DIR/virtualenvwrapper_django/postdeactivate" >> $WORKON_HOME/postdeactivate
 ```
 
-**5. Now cat each file to make sure you accidently append it twice. Sould look something like this.  You're done!**
+**5. Now cat each file to make sure you accidently append it twice. Sould look something like this.**
 
 ```console
 jbisbee@tacquito:~/src$ cat $WORKON_HOME/postactivate
@@ -54,6 +54,8 @@ jbisbee@tacquito:~/src$ cat $WORKON_HOME/postdeactivate
 
 source /home/jbisbee/src/virtualenvwrapper-django/postdeactivate
 ```
+
+**6. You're done!**
 
 *__Note:__ If you run into any problems with these install instructions let me know.  I tried to be
 generic as possible without having to maintain an install script that hides the logic form you (and
