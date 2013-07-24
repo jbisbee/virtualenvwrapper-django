@@ -46,7 +46,7 @@ mysql>
 
 **Cleans up after postactive**
 
-1. remove manage alias (silently incase it didn't get set)
-2. unsets DJANGO\_SETTINGS\_MODULE
-
-
+```bash
+unset DJANGO_SETTINGS_MODULE
+unalias manage >/dev/null 2>/dev/null
+```
