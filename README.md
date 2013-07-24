@@ -29,9 +29,9 @@ This will take the settings python module file and turn it into its python modul
 you with one of the following (granted you follow the above settings convention)
 
 ```bash
-export DJANGO_SETTINGS_MODULE=spock.settings.jbisbee
-export DJANGO_SETTINGS_MODULE=spock.settings.dev
-export DJANGO_SETTINGS_MODULE=spock.settings
+export DJANGO_SETTINGS_MODULE="spock.settings.jbisbee"
+export DJANGO_SETTINGS_MODULE="spock.settings.dev"
+export DJANGO_SETTINGS_MODULE="spock.settings"
 ```
 Now you'll be able to run commands that require the DJANGO\_SETTINGS\_MODULE environment variable to
 be set without passing in --settings.
