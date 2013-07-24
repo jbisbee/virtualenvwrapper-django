@@ -102,7 +102,7 @@ unalias manage >/dev/null 2>/dev/null
 
 **v1.2**
 * Added DJANGO_PROJECTS_SRC_DIR as a .bashrc override because I mistakenly assumed everyone
-  uses $HOME/src to store there source code.
+  uses $HOME/src to store their source code.
 
 **v1.1**
 * Added install instructions to the README
