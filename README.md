@@ -39,3 +39,5 @@ mysql>
 unset DJANGO_SETTINGS_MODULE
 unalias manage >/dev/null 2>/dev/null
 ```
+
+*__Disclaimer:__ If you manage your Django project's settings differently let me know. I'd love to make the determine_django_module_settings more flexible and patches are more than welcome!*
