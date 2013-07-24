@@ -11,7 +11,7 @@ export DJANGO_SETTINGS_MODULE="python.module.name.of.your.settings"
 
 It accomplishes this via postactivate and postdeactive bash hooks
 
-### How Settigns are Found ###
+### How Settings are Found ###
 
 The current bash function looks for settings in the following locations.  USER is the USER environment variable and can be overridden with DJANGO_VIRTUALENVWRAPPER_USER set in your .bashrc file (useful if you use vagrant like me)
 
