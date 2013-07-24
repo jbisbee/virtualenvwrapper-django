@@ -4,13 +4,17 @@
 # uncomment set -x and set +x below to turn on bash script debugging
 #set -x
 
+# set DJANGO_PROJECTS_SRC_DIR to where you keep your source.  I use $HOME/src
+if [[ -z "$DJANGO_PROJECTS_SRC_DIR" ]]
+then
+    echo "DJANGO_PROJECTS_SRC_DIR is not defined.  Set in your .bashrc to where you checkout your projects (ie $HOME/src)"
+fi
+
 # I tie my project name with my virtualenv name.  If you don't you'll need to 
 # create a lookup table between virtual env name and django project name
 virtual_env_name=$(basename $VIRTUAL_ENV)
 django_project_name=${virtual_env_name}
-
-# You will need to customize django_project_dir to wherever you keep your project src. 
-django_project_dir=$(readlink -f "$HOME/src/$django_project_name")
+django_project_dir=$(readlink -f "$DJANGO_PROJECTS_SRC_DIR/$django_project_name")
 
 # set DJANGO_VIRTUALENVWRAPPER_USER in your .bashrc file if your env USER doesn't
 # match your settings user (ie you're using vagrant)

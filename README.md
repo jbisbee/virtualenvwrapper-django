@@ -21,7 +21,14 @@ jbisbee@tacquito:~$ echo $WORKON_HOME
 /home/jbisbee/.virtualenvs
 ```
 
-**2. Pick a directroy where you want checkout to live (~/bin, ~/src, etc)**
+**2. Set DJANGO_PROJECTS_SRC_DIR to where you checkout code.  I use $HOME/src
+
+```bash
+# .bashrc
+export DJANGO_PROJECTS_SRC_DIR=$HOME/src
+```
+
+**3. Pick a directroy where you want checkout to live (~/bin, ~/src, etc)**
 
 ```console
 jbisbee@tacquito:~$ export VIRTUALENVWRAPPER_DJANGO_DIR=~/src
@@ -29,21 +36,21 @@ jbisbee@tacquito:~$ echo $VIRTUALENVWRAPPER_DJANGO_DIR
 /home/jbisbee/src
 ```
 
-**3. Checkout into that dir**
+**4. Checkout into that dir**
 
 ```console
 jbisbee@tacquito:~$ cd $VIRTUALENVWRAPPER_DJANGO_DIR
 jbisbee@tacquito:~/src$ git clone https://github.com/jbisbee/virtualenvwrapper-django.git
 ```
 
-**4. Append supplement existings hooks with bash source commands to the ones within the project**
+**5. Append supplement existings hooks with bash source commands to the ones within the project**
 
 ```console
 jbisbee@tacquito:~/src$ echo "source $VIRTUALENVWRAPPER_DJANGO_DIR/virtualenvwrapper_django/postactivate" >> $WORKON_HOME/postactivate
 jbisbee@tacquito:~/src$ echo "source $VIRTUALENVWRAPPER_DJANGO_DIR/virtualenvwrapper_django/postdeactivate" >> $WORKON_HOME/postdeactivate
 ```
 
-**5. Now cat each file to make sure you accidently append it twice. Sould look something like this.**
+**6. Now cat each file to make sure you accidently append it twice. Sould look something like this.**
 
 ```console
 jbisbee@tacquito:~/src$ cat $WORKON_HOME/postactivate
@@ -58,7 +65,7 @@ jbisbee@tacquito:~/src$ cat $WORKON_HOME/postdeactivate
 source /home/jbisbee/src/virtualenvwrapper-django/postdeactivate
 ```
 
-**6. You're done!**
+**7. You're done!**
 
 *__Note:__ If you run into any problems with these install instructions let me know.  I tried to be
 generic as possible without having to maintain an install script that hides the logic form you (and
@@ -100,6 +107,9 @@ unalias manage >/dev/null 2>/dev/null
 *__Disclaimer:__ If you manage your Django project's settings differently let me know. I'd love to make the determine_django_module_settings more flexible and patches are more than welcome!*
 
 ### Change Log ###
+
+**v1.2**
+* Added PROJECTS_SRC_DIRECTORY as a .bashrc override because I mistakenly assumed everyone uses 
 
 **v1.1**
 * Added install instructions to the README
