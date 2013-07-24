@@ -30,25 +30,25 @@ jbisbee@tacquito:~$ echo $VIRTUALENVWRAPPER_DJANGO_DIR
 
 ```console
 jbisbee@tacquito:~$ cd $VIRTUALENVWRAPPER_DJANGO_DIR
-jbisbee@tacquito:~$ git clone https://github.com/jbisbee/virtualenvwrapper-django.git
+jbisbee@tacquito:~/src$ git clone https://github.com/jbisbee/virtualenvwrapper-django.git
 ```
 
 **4. Append supplement existings hooks with bash source commands to the ones within the project**
 
 ```console
-jbisbee@tacquito:~$ echo "source $VIRTUALENVWRAPPER_DJANGO_DIR/virtualenvwrapper_django/postactivate" >> $WORKON_HOME/postactivate
-jbisbee@tacquito:~$ echo "source $VIRTUALENVWRAPPER_DJANGO_DIR/virtualenvwrapper_django/postdeactivate" >> $WORKON_HOME/postdeactivate
+jbisbee@tacquito:~/src$ echo "source $VIRTUALENVWRAPPER_DJANGO_DIR/virtualenvwrapper_django/postactivate" >> $WORKON_HOME/postactivate
+jbisbee@tacquito:~/src$ echo "source $VIRTUALENVWRAPPER_DJANGO_DIR/virtualenvwrapper_django/postdeactivate" >> $WORKON_HOME/postdeactivate
 ```
 
 **5. Now cat each file to make sure you accidently append it twice. Sould look something like this.  You're done!**
 
 ```console
-jbisbee@tacquito:~$ cat $WORKON_HOME/postactivate
+jbisbee@tacquito:~/src$ cat $WORKON_HOME/postactivate
 #!/bin/bash
 # This hook is run after every virtualenv is activated.
 
 source /home/jbisbee/src/virtualenvwrapper-django/postactivate
-jbisbee@tacquito:~$ cat $WORKON_HOME/postdeactivate
+jbisbee@tacquito:~/src$ cat $WORKON_HOME/postdeactivate
 #!/bin/bash
 # This hook is run after every virtualenv is deactivated.
 
