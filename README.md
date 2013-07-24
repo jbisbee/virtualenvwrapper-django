@@ -21,7 +21,7 @@ jbisbee@tacquito:~$ echo $WORKON_HOME
 /home/jbisbee/.virtualenvs
 ```
 
-**2. Set DJANGO_PROJECTS_SRC_DIR to where you checkout code.  I use $HOME/src
+**2. Set DJANGO_PROJECTS_SRC_DIR to where you checkout code.  I use $HOME/src**
 
 ```bash
 # .bashrc
