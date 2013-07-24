@@ -11,14 +11,14 @@ export DJANGO_SETTINGS_MODULE="python.module.name.of.your.settings"
 
 ### Installation ###
 
-1. Make sure your WORKON_HOME dirctory is defined for virtualenvwrapper
+**1. Make sure your WORKON_HOME dirctory is defined for virtualenvwrapper**
 
 ```console
 jbisbee@tacquito:~$ echo $WORKON_HOME
 /home/jbisbee/.virtualenvs
 ```
 
-2. Pick a directroy where you want checkout to live (~/bin, ~/src, etc)
+**2. Pick a directroy where you want checkout to live (~/bin, ~/src, etc)**
 
 ```console
 jbisbee@tacquito:~$ export VIRTUALENVWRAPPER_DJANGO_DIR=~/src
@@ -26,22 +26,21 @@ jbisbee@tacquito:~$ echo $VIRTUALENVWRAPPER_DJANGO_DIR
 /home/jbisbee/src
 ```
 
-3. Checkout into that dir
+**3. Checkout into that dir**
 
 ```console
 jbisbee@tacquito:~$ cd $VIRTUALENVWRAPPER_DJANGO_DIR
 jbisbee@tacquito:~$ git clone https://github.com/jbisbee/virtualenvwrapper-django.git
 ```
 
-4. Append supplement existings hooks with bash source commands to the ones within the project
+**4. Append supplement existings hooks with bash source commands to the ones within the project**
 
 ```console
 jbisbee@tacquito:~$ echo "source $VIRTUALENVWRAPPER_DJANGO_DIR/virtualenvwrapper_django/postactivate" >> $WORKON_HOME/postactivate
 jbisbee@tacquito:~$ echo "source $VIRTUALENVWRAPPER_DJANGO_DIR/virtualenvwrapper_django/postdeactivate" >> $WORKON_HOME/postdeactivate
 ```
 
-5. Now cat each file to make sure you accidently append it twice. Sould look something like this.
-You're done
+**5. Now cat each file to make sure you accidently append it twice. Sould look something like this.  You're done!**
 
 ```console
 jbisbee@tacquito:~$ cat $WORKON_HOME/postactivate
