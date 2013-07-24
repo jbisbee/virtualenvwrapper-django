@@ -68,9 +68,10 @@ fi
 
 #set +x
 
-echo "django_project_name: $django_project_name"
-echo "django_user: $django_user"
-echo "django_project_dir: $django_project_dir"
-echo "django_manage_py: $django_manage_py"
-echo "django_settings_module: $django_settings_module"
+# uncomment to help debug
+#echo "django_project_name: $django_project_name"
+#echo "django_user: $django_user"
+#echo "django_project_dir: $django_project_dir"
+#echo "django_manage_py: $django_manage_py"
+#echo "django_settings_module: $django_settings_module"
 
