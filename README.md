@@ -1,6 +1,6 @@
 # virtualenvwrapper-django #
 
-Django Project Friendly virtualenvwrapper postactive and postdeactive Bash Files
+Django Project Friendly virtualenvwrapper postactivate and postdeactivate Bash Scripts
 
 ### postactivate Gives You ###
 
