@@ -11,13 +11,7 @@ export DJANGO_SETTINGS_MODULE="python.module.name.of.your.settings"
 
 It accomplishes this via postactivate and postdeactive bash hooks
 
-### postactivate ###
-
-**manage Bash Alias**
-
-This gives you manage alias which is equvilant to
-
-**How Settigns are Found**
+### How Settigns are Found ###
 
 The current bash function looks for settings in the following locations.  USER is the USER environment variable and can be overridden with DJANGO_VIRTUALENVWRAPPER_USER set in your .bashrc file (useful if you use vagrant like me)
 
@@ -41,9 +35,7 @@ Now you'll be able to run commands that require settings without hardcoding the 
 mysql>
 ```
 
-### postdeactivate ###
-
-Clean things up when you leave...
+### Clean things up when you leave... (postdeactivate)###
 
 ```bash
 unset DJANGO_SETTINGS_MODULE
