@@ -25,23 +25,20 @@ places
 
 *USER can be overriden with DJANGO_VIRTUALENVWRAPPER_USER - if you use vagrant, etc*
 
+This will take the settings python module file and turn it into its python module name and provide
+you with one of the following (granted you follow the above settings convention)
+
+```bash
+export DJANGO_SETTINGS_MODULE=spock.settings.jbisbee
+export DJANGO_SETTINGS_MODULE=spock.settings.dev
+export DJANGO_SETTINGS_MODULE=spock.settings
+```
 Now you'll be able to run commands that require the DJANGO\_SETTINGS\_MODULE environment variable to
 be set without passing in --settings.
 
 ```console
 (spock)jbisbee@tacquito:~/src/spock$ manage dbshell
-Welcome to the MySQL monitor.  Commands end with ; or \g.
-Your MySQL connection id is 95
-Server version: 5.5.31-0ubuntu0.12.04.2 (Ubuntu)
-
-Copyright (c) 2000, 2013, Oracle and/or its affiliates. All rights reserved.
-
-Oracle is a registered trademark of Oracle Corporation and/or its
-affiliates. Other names may be trademarks of their respective
-owners.
-
-Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
-
+...
 mysql>
 ```
 
