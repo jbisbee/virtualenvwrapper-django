@@ -1,40 +1,39 @@
 # virtualenvwrapper-django #
 
-Django Project Friendly virtualenvwrapper postactivate and postdeactivate Bash Scripts
+Django Project Friendly virtualenvwrapper postactivate and postdeactivate Bash Scripts.  Create a manage.py alias called manage that you can run from **anywhere**.  Also dynamically sets your DJANGO\_SETTINGS\_MODULE environment variable by searching your Django project.
 
-### postactivate Gives You ###
+So in short it basically does this everytime you workon Django project and then unsets them when you leave.
+
+```bash
+alias manage="python /absolute/path/to/your/django/projects/manage.py"
+export DJANGO_SETTINGS_MODULE="python.module.name.of.your.settings"
+```
+
+It accomplishes this via postactivate and postdeactive bash hooks
+
+### postactivate ###
 
 **manage Bash Alias**
 
 This gives you manage alias which is equvilant to
 
-```bash
-alias manage="python /absolute/path/to/your/django/projects/manage.py"
-```
+**How Settigns are Found**
 
-which allows you to run manage.py from anywhere once you load our virtual env
-
-**Autoset Your Django Project's DJANGO\_SETTINGS\_MODULE Environment Variable**
-
-The incluced postactivate hook introspects your project looking for a settings file in the following
-places
+The current bash function looks for settings in the following locations.  USER is the USER environment variable and can be overridden with DJANGO_VIRTUALENVWRAPPER_USER set in your .bashrc file (useful if you use vagrant like me)
 
 1. django\_project\_dir/\*/settings/USER.py
 2. django\_project\_dir/\*/settings/dev.py
 3. django\_project\_dir/\*/settings.py
 
-*USER can be overriden with DJANGO_VIRTUALENVWRAPPER_USER - if you use vagrant, etc*
-
-This will take the settings python module file and turn it into its python module name and provide
-you with one of the following (granted you follow the above settings convention)
+Once a Django settings file is found it turns it into the python module equivilant and exports as the DJANGO_SETTINGS_MODULE environement variable.
 
 ```bash
 export DJANGO_SETTINGS_MODULE="spock.settings.jbisbee"
 export DJANGO_SETTINGS_MODULE="spock.settings.dev"
 export DJANGO_SETTINGS_MODULE="spock.settings"
 ```
-Now you'll be able to run commands that require the DJANGO\_SETTINGS\_MODULE environment variable to
-be set without passing in --settings.
+
+Now you'll be able to run commands that require settings without hardcoding the settings environment variable or passing in --settings manually. 
 
 ```console
 (spock)jbisbee@tacquito:~/src/spock$ manage dbshell
@@ -42,9 +41,9 @@ be set without passing in --settings.
 mysql>
 ```
 
-### postdeactivate Gives You ###
+### postdeactivate ###
 
-**Cleans up after postactive**
+Clean things up when you leave...
 
 ```bash
 unset DJANGO_SETTINGS_MODULE
