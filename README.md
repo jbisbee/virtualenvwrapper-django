@@ -9,7 +9,7 @@ alias $DJANGO_MANAGE_PY_ALIAS="python /absolute/path/to/your/django/projects/man
 export DJANGO_SETTINGS_MODULE="python.module.name.of.your.settings"
 ```
 
-*__Note:__ DJANGO_MANAGE_PY_ALIAS defaults to **manage**, but you can override this behavior to use
+*__Note:__ DJANGO_MANAGE_PY_ALIAS defaults to __manage__, but you can override this behavior to use
 any command you want from your .bashrc file.*
 
 ### Installation ###
