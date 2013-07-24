@@ -5,9 +5,12 @@ Django project friendly virtualenvwrapper postactivate and postdeactivate bash s
 So in short, it does the following everytime you *workon* a Django project and then unsets them when you leave.
 
 ```bash
-alias manage="python /absolute/path/to/your/django/projects/manage.py"
+alias $DJANGO_MANAGE_PY_ALIAS="python /absolute/path/to/your/django/projects/manage.py"
 export DJANGO_SETTINGS_MODULE="python.module.name.of.your.settings"
 ```
+
+*__Note:__ DJANGO_MANAGE_PY_ALIAS defaults to **manage**, but you can override this behavior to use
+any command you want from your .bashrc file.*
 
 ### Installation ###
 
@@ -96,8 +99,25 @@ unalias manage >/dev/null 2>/dev/null
 
 *__Disclaimer:__ If you manage your Django project's settings differently let me know. I'd love to make the determine_django_module_settings more flexible and patches are more than welcome!*
 
+### Change Log ###
+
+**v1.1**
+* Added install instructions to the README
+* Added DJANGO_MANAGE_PY_ALIAS environment variable to be able override the alias from just manage
+* Added the Change Log (is this meta or what?)
+* Added Authors Mike Kreitman, John Barry, and Ethan Soergel.  Thanks guys!
+
+**v1.0**
+* Initial release
+
 ### Authors ###
 
 * Jeff Bisbee
-* Mike Kreitman
-* John Barry
+* Mike Kreitman - a small bit of bash help turning a absolute file name into a relative one.  I
+  could have done it in two seconds in python or perl, but bash still continues to throw me for a
+  loop sometimes
+* John Barry - feedback from Google+ on function typo (signature and caller) and the idea for the
+  install instructions.
+* Ethan Soergel - pointing me to his similar project called EmceeVirtualEnv on github and giving me
+  the idea for the DJANGO_MANAGE_PY_ALIAS variable (able to override the alias)
+

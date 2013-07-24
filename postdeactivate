@@ -4,7 +4,12 @@
 # Uncomment set -x and set +x to debug
 #set -x
 
+if [[ -z "$DJANGO_MANAGE_PY_ALIAS" ]]
+then
+    DJANGO_MANAGE_PY_ALIAS="manage"
+fi
+
 unset DJANGO_SETTINGS_MODULE
-unalias manage >/dev/null 2>/dev/null
+unalias $DJANGO_MANAGE_PY_ALIAS >/dev/null 2>/dev/null
 
 #set +x

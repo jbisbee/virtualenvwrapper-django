@@ -21,6 +21,13 @@ else
     django_user=${USER}
 fi
 
+# set DJANGO_MANAGE_PY_ALIAS in your .bashrc file if you'd like to use an alias 
+# name other than "manage" 
+if [[ -z "$DJANGO_MANAGE_PY_ALIAS" ]]
+then
+    export DJANGO_MANAGE_PY_ALIAS="manage"
+fi
+
 function determine_django_settings_module {
     dir=${1}
     user=${2}
@@ -58,7 +65,7 @@ then
     django_settings_module=$(determine_django_settings_module ${django_project_dir} ${django_user})
     django_manage_py=$(determine_django_manage_py ${django_project_dir})
 
-    alias manage="python $django_manage_py"
+    alias $DJANGO_MANAGE_PY_ALIAS="python $django_manage_py"
     export DJANGO_SETTINGS_MODULE="$django_settings_module"
     cd ${django_project_dir}
 else
