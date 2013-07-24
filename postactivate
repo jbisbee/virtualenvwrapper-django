@@ -47,7 +47,7 @@ function determine_django_settings_module {
     echo ${django_settings_module}
 }
 
-function determine_djanngo_manage_py {
+function determine_django_manage_py {
     dir=${1}
 
     echo $(find ${dir} -name "manage.py" -type f)
@@ -56,7 +56,7 @@ function determine_djanngo_manage_py {
 if [ -d "$django_project_dir" ]
 then
     django_settings_module=$(determine_django_settings_module ${django_project_dir} ${django_user})
-    django_manage_py=$(determine_djanngo_manage_py ${django_project_dir})
+    django_manage_py=$(determine_django_manage_py ${django_project_dir})
 
     alias manage="python $django_manage_py"
     export DJANGO_SETTINGS_MODULE="$django_settings_module"
