@@ -60,8 +60,8 @@ source /home/jbisbee/src/virtualenvwrapper-django/postdeactivate
 *__Note:__ If you run into any problems with these install instructions let me know.  I tried to be
 generic as possible without having to maintain an install script that hides the logic form you (and
 most likely assumes things and gets the important bits wrong).  I would love to help you figure out
-why things didn't work and update the instructions accoridngly.  Don't get discouraged! :D  Thank
-you very much John Barry for the idea!*
+why things didn't work and update the instructions accordingly.  Don't get discouraged! :D  Thank
+you John Barry (via Google+) for the idea for these instructions!*
 
 ### How Settings are Found ###
 
