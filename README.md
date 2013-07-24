@@ -1,25 +1,23 @@
 # virtualenvwrapper-django #
 
-Django Project Friendly virtualenvwrapper postactivate and postdeactivate Bash Scripts.  Create a manage.py alias called manage that you can run from **anywhere**.  Also dynamically sets your DJANGO\_SETTINGS\_MODULE environment variable by searching your Django project.
+Django project friendly virtualenvwrapper postactivate and postdeactivate bash scripts.  Postactivate creates a manage.py alias, **manage**, that allows you can run from manage.py from **anywhere** and also sets your DJANGO\_SETTINGS\_MODULE environment variable by introspecing your project's directory.
 
-So in short it basically does this everytime you *workon* a Django project and then unsets them when you leave.
+So in short, it does the following everytime you *workon* a Django project and then unsets them when you leave.
 
 ```bash
 alias manage="python /absolute/path/to/your/django/projects/manage.py"
 export DJANGO_SETTINGS_MODULE="python.module.name.of.your.settings"
 ```
 
-It accomplishes this via postactivate and postdeactive bash hooks
-
 ### How Settings are Found ###
 
-The current bash function looks for settings in the following locations.  USER is the USER environment variable and can be overridden with DJANGO_VIRTUALENVWRAPPER_USER set in your .bashrc file (useful if you use vagrant like me)
+The current function looks for settings in the following locations. 
 
 1. django\_project\_dir/\*/settings/USER.py
 2. django\_project\_dir/\*/settings/dev.py
 3. django\_project\_dir/\*/settings.py
 
-Once a Django settings file is found it turns it into the python module equivilant and exports as the DJANGO_SETTINGS_MODULE environement variable.
+*The USER environment variable may be overridden with the DJANGO_VIRTUALENVWRAPPER_USER from your .bashrc file (in case you use vagrant like me)*
 
 ```bash
 export DJANGO_SETTINGS_MODULE="spock.settings.jbisbee"
