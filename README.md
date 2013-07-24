@@ -2,7 +2,7 @@
 
 Django Project Friendly virtualenvwrapper postactivate and postdeactivate Bash Scripts.  Create a manage.py alias called manage that you can run from **anywhere**.  Also dynamically sets your DJANGO\_SETTINGS\_MODULE environment variable by searching your Django project.
 
-So in short it basically does this everytime you workon Django project and then unsets them when you leave.
+So in short it basically does this everytime you *workon* a Django project and then unsets them when you leave.
 
 ```bash
 alias manage="python /absolute/path/to/your/django/projects/manage.py"
