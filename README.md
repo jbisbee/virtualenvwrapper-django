@@ -116,7 +116,7 @@ unalias $DJANGO_MANAGE_PY_ALIAS >/dev/null 2>/dev/null
 ### Authors ###
 
 * **Jeff Bisbee**
-* **Mike Kreitman** - a small bit of bash help turning a absolute file name into a relative one.  I
+* **Michael Kreitman** - a small bit of bash help turning a absolute file name into a relative one.  I
   could have done it in two seconds in python or perl, but bash still continues to throw me for a
   loop sometimes
 * **John Barry** - feedback from Google+ on function typo (signature and caller) and the idea for the
