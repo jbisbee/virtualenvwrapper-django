@@ -28,21 +28,26 @@ jbisbee@tacquito:~$ echo $WORKON_HOME
 export DJANGO_PROJECTS_SRC_DIR=$HOME/src
 ```
 
-**3. Checkout into that dir**
+**3. Reload your .bashrc**
+```console
+jbisbee@tacquito:~$ source ~/.bashrc
+```
+
+**4. Checkout into that dir**
 
 ```console
 jbisbee@tacquito:~$ cd $DJANGO_PROJECTS_SRC_DIR
 jbisbee@tacquito:~/src$ git clone https://github.com/jbisbee/virtualenvwrapper-django.git
 ```
 
-**4. Append supplement existings hooks with bash source commands to the ones within the project**
+**5. Append supplement existings hooks with bash source commands to the ones within the project**
 
 ```console
 jbisbee@tacquito:~/src$ echo "source $DJANGO_PROJECTS_SRC_DIR/virtualenvwrapper-django/postactivate" >> $WORKON_HOME/postactivate
 jbisbee@tacquito:~/src$ echo "source $DJANGO_PROJECTS_SRC_DIR/virtualenvwrapper-django/postdeactivate" >> $WORKON_HOME/postdeactivate
 ```
 
-**5. Now cat each file to make sure you accidently append it twice. Sould look something like this.**
+**6. Now cat each file to make sure you accidently append it twice. Sould look something like this.**
 
 ```console
 jbisbee@tacquito:~/src$ cat $WORKON_HOME/postactivate
@@ -57,7 +62,7 @@ jbisbee@tacquito:~/src$ cat $WORKON_HOME/postdeactivate
 source /home/jbisbee/src/virtualenvwrapper-django/postdeactivate
 ```
 
-**6. You're done!**
+**7. You're done!**
 
 *__Note:__ If you run into any problems with these install instructions let me know.  I tried to be
 generic as possible without having to maintain an install script that hides the logic form you (and
