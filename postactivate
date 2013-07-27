@@ -14,7 +14,7 @@ fi
 # create a lookup table between virtual env name and django project name
 virtual_env_name=$(basename $VIRTUAL_ENV)
 django_project_name=${virtual_env_name}
-django_project_dir=$(readlink -f "$DJANGO_PROJECTS_SRC_DIR/$django_project_name")
+django_project_dir=$(readlink "$DJANGO_PROJECTS_SRC_DIR/$django_project_name")
 
 # set DJANGO_VIRTUALENVWRAPPER_USER in your .bashrc file if your env USER doesn't
 # match your settings user (ie you're using vagrant)
