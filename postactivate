@@ -2,7 +2,7 @@
 # This hook is run after every virtualenv is activated.
 
 # uncomment set -x and set +x below to turn on bash script debugging
-set -x
+#set -x
 
 # set DJANGO_PROJECTS_SRC_DIR to where you keep your source.  I use $HOME/src
 if [[ -z "$DJANGO_PROJECTS_SRC_DIR" ]]
@@ -81,7 +81,7 @@ else
     unset django_settings_module
 fi
 
-set +x
+#set +x
 
 # uncomment to help debug
 #echo "django_project_name: $django_project_name"
