@@ -2,7 +2,7 @@
 # This hook is run after every virtualenv is activated.
 
 # uncomment set -x and set +x below to turn on bash script debugging
-#set -x
+set -x
 
 # set DJANGO_PROJECTS_SRC_DIR to where you keep your source.  I use $HOME/src
 if [[ -z "$DJANGO_PROJECTS_SRC_DIR" ]]
@@ -14,7 +14,11 @@ fi
 # create a lookup table between virtual env name and django project name
 virtual_env_name=$(basename $VIRTUAL_ENV)
 django_project_name=${virtual_env_name}
-django_project_dir=$(readlink "$DJANGO_PROJECTS_SRC_DIR/$django_project_name")
+django_project_dir="$DJANGO_PROJECTS_SRC_DIR/$django_project_name"
+if [[ -h "$django_project_dir" ]]
+then
+    django_project_dir=$(readlink $django_project_dir)
+fi
 
 # set DJANGO_VIRTUALENVWRAPPER_USER in your .bashrc file if your env USER doesn't
 # match your settings user (ie you're using vagrant)
@@ -77,7 +81,7 @@ else
     unset django_settings_module
 fi
 
-#set +x
+set +x
 
 # uncomment to help debug
 #echo "django_project_name: $django_project_name"
