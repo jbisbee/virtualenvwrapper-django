@@ -13,7 +13,7 @@ fi
 # I tie my project name with my virtualenv name.  If you don't you'll need to 
 # create a lookup table between virtual env name and django project name
 virtual_env_name=$(basename $VIRTUAL_ENV)
-django_project_name=${virtual_env_name}
+django_project_name=$virtual_env_name
 django_project_dir="$DJANGO_PROJECTS_SRC_DIR/$django_project_name"
 if [[ -h "$django_project_dir" ]]
 then
@@ -24,9 +24,9 @@ fi
 # match your settings user (ie you're using vagrant)
 if [[ -n "$DJANGO_VIRTUALENVWRAPPER_USER" ]]
 then
-    django_user=${DJANGO_VIRTUALENVWRAPPER_USER}
+    django_user=$DJANGO_VIRTUALENVWRAPPER_USER
 else
-    django_user=${USER}
+    django_user=$USER
 fi
 
 # set DJANGO_MANAGE_PY_ALIAS in your .bashrc file if you'd like to use an alias 
@@ -37,20 +37,21 @@ then
 fi
 
 function determine_django_settings_module {
-    dir=${1}
-    user=${2}
+    dir=$1
+    user=$2
  
-    settings_dir_name=$(find  ${dir} -name "settings" -type d)
+    settings_dir_name=$(find $dir -name "settings" -type d)
     if [ $settings_dir_name ]; then
-        settings_dir_user=$(find ${settings_dir_name} -name "$user.py" -type f)
-        settings_dir_dev=$(find ${settings_dir_name} -name "dev.py" -type f)
+        settings_dir_user=$(find $settings_dir_name -name "$user.py" -type f)
+        settings_dir_dev=$(find $settings_dir_name -name "dev.py" -type f)
     fi
 
-    settings_default=$(find ${dir} -name "settings.py" -type f)
+    settings_default=$(find $dir -name "settings.py" -type f)
 
     for django_settings_file in $settings_dir_user $settings_dir_dev $settings_default
     do
-        if [ ${django_settings_file} ]; then
+        if [[ ! -z "$django_settings_file" ]]
+        then
             break
         fi
     done
@@ -59,23 +60,24 @@ function determine_django_settings_module {
     django_settings_module=${django_settings_module%.py}
     django_settings_module=`echo $django_settings_module | sed 's/\//\./g'`
 
-    echo ${django_settings_module}
+    echo $django_settings_module
 }
 
 function determine_django_manage_py {
-    dir=${1}
+    dir=$1
 
-    echo $(find ${dir} -name "manage.py" -type f)
+    echo $(find $dir -name "manage.py" -type f)
 }
 
 if [ -d "$django_project_dir" ]
 then
-    django_settings_module=$(determine_django_settings_module ${django_project_dir} ${django_user})
-    django_manage_py=$(determine_django_manage_py ${django_project_dir})
+    django_manage_py=$(determine_django_manage_py $django_project_dir)
+    django_manage_dir=$(dirname $django_manage_py)
+    django_settings_module=$(determine_django_settings_module $django_manage_dir $django_user)
 
     alias $DJANGO_MANAGE_PY_ALIAS="python $django_manage_py"
     export DJANGO_SETTINGS_MODULE="$django_settings_module"
-    cd ${django_project_dir}
+    cd $django_project_dir
 else
     unset django_manage_py
     unset django_settings_module
