@@ -2,13 +2,24 @@
 
 if [[ -z "$WORKON_HOME" ]]
 then
-    echo "Environment variable WORKON_HOME is not defined (ie WORKON_HOME=\$HOME/.virtualenvs)"
+    echo "Environment variable WORKON_HOME is not defined "
+    echo "  Most likely you have not yet setup virtualenvwrapper"
+    echo "  correctly."
+    echo " "
+    echo "    \# .bashrc example"
+    echo "    WORKON_HOME=\$HOME/.virtualenvs"
+    echo " "
     exit 1
 fi
 
 if [[ -z "$DJANGO_PROJECTS_SRC_DIR" ]]
 then
-    echo "Environment variable DJANGO_PROJECTS_SRC_DIR is not defined (ie DJANGO_PROJECTS_SRC_DIR=\$HOME/src)"
+    echo "Environment variable DJANGO_PROJECTS_SRC_DIR is not defined"
+    echo "  It should be set to the directory where you checkout your"
+    echo "  code."
+    echo "    \# .bashrc example"
+    echo "    DJANGO_PROJECTS_SRC_DIR=\$HOME/src"
+    echo " "
     exit 1
 fi
 
@@ -50,7 +61,7 @@ then
     echo "installing virtualenvwrapper-django postactivate"
     $(echo "source $virtualenvwrapper_django_postactivate_file" >> "$target_postactivate_file")
 else
-    echo "already installed virtualenvwrapper-django postactivate"
+    echo "virtualenvwrapper-django postactivate has already been installed"
 fi
 
 if [[ -z "$found_deactivate" ]]
@@ -58,5 +69,5 @@ then
     echo "installing virtualenvwrapper-django postdeactivate"
     $(echo "source $virtualenvwrapper_django_postdeactivate_file" >> "$target_postdeactivate_file")
 else
-    echo "already installed virtualenvwrapper-django postdeactivate"
+    echo "virtualenvwrapper-django postdeactivate has already been installed"
 fi
