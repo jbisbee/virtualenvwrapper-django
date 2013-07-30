@@ -9,8 +9,12 @@ alias $DJANGO_MANAGE_PY_ALIAS="python /absolute/path/to/your/django/projects/man
 export DJANGO_SETTINGS_MODULE="python.module.name.of.your.settings"
 ```
 
-*__Note:__ DJANGO_MANAGE_PY_ALIAS defaults to __manage__, but you can override this behavior to use
+*__Note:__
+
+* DJANGO_MANAGE_PY_ALIAS defaults to __manage__, but you can override this behavior to use
 any command you want from your .bashrc file.*
+* DJANGO_VIRTUALENV_NAME_MAP defaults to ~/.django-virtualenv-name-map. Override this environment to change the location of the mapping.  The file consists of virtualenv name and django project names seperated by spaces.  [See below](#name-map-format) for file format example.
+
 
 ### Installation ###
 
@@ -108,7 +112,26 @@ unalias $DJANGO_MANAGE_PY_ALIAS >/dev/null 2>/dev/null
 
 *__Disclaimer:__ If you manage your Django project's settings differently let me know. I'd love to make the determine_django_module_settings more flexible and patches are more than welcome!*
 
+
+### <a id="name-map-format"></a>Virtualenv name to Django Project Name Mapping ###
+
+I made a big assumption when I originally wrote this extension that everyone would make their virtualenv names and project names the same.  I quickly found out this was not the case from two of my coworkers and I promised myself I would finally fix this problem.
+
+I created a new environment variable called DJANGO_VIRTUALENV_NAME_MAP that defaults to $HOME/.django-virtualenv-name-map that you're free to override.  The file contents are as follows
+
+```bash
+# \$HOME/.django-virtualenv-name-map
+sparky sparky-django
+union unionweb
+```
+
 ### Change Log ###
+
+**v1.4**
+* Added DJANGO_VIRTUALENV_NAME_MAP environment variable and defaulted the value to 
+  $HOME/.django-virtualenv-name-map.  The file format is a sample name value pair seperated by spaces.  
+* Fix cd directory to attempt to cd to Django manage.py directory then fallback to the django project
+  directory
 
 **v1.3**
 * Fixed bug if manage.py was not located in the root project directory.  Settings was

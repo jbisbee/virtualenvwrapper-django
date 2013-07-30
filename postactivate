@@ -10,10 +10,33 @@ then
     echo "DJANGO_PROJECTS_SRC_DIR is not defined.  Set in your .bashrc to where you checkout your projects (ie $HOME/src)"
 fi
 
-# I tie my project name with my virtualenv name.  If you don't you'll need to 
-# create a lookup table between virtual env name and django project name
+if [[ -z "$DJANGO_VIRTUALENV_NAME_MAP" ]]
+then
+    export DJANGO_VIRTUALENV_NAME_MAP="$HOME/.django-virtualenv-name-map"
+fi
+
+# Simple solution to map virtualenv names to project names hashmap - thanks Al P.
+# http://stackoverflow.com/a/2225712
+hput() {
+    echo "$1 $2" >> $DJANGO_VIRTUALENV_NAME_MAP
+}
+
+hget() {
+    if [[ -e $DJANGO_VIRTUALENV_NAME_MAP ]] 
+    then
+        grep "^$1 " $DJANGO_VIRTUALENV_NAME_MAP | awk '{ print $2 };'
+    else
+        echo ""
+    fi
+}
+
 virtual_env_name=$(basename $VIRTUAL_ENV)
-django_project_name=$virtual_env_name
+django_project_name=$(hget $virtual_env_name)
+if [[ -z $django_project_name ]]
+then
+    django_project_name=$virtual_env_name
+fi
+
 django_project_dir="$DJANGO_PROJECTS_SRC_DIR/$django_project_name"
 if [[ -h "$django_project_dir" ]]
 then
@@ -81,10 +104,18 @@ then
 
     alias $DJANGO_MANAGE_PY_ALIAS="python $django_manage_py"
     export DJANGO_SETTINGS_MODULE="$django_settings_module"
-    cd $django_project_dir
 else
     unset django_manage_py
+    unset django_manage_dir
     unset django_settings_module
+fi
+
+if [[ -d $django_manage_dir ]]
+then
+    cd $django_manage_dir
+elif [[ -d $django_project_dir ]]
+then
+    cd $django_project_dir
 fi
 
 #set +x
