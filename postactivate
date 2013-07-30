@@ -1,122 +1,91 @@
 #!/bin/bash
-# This hook is run after every virtualenv is activated.
+# This hook is run after every virtualenv is activated.  It sets a shell alias
+# ('manage', by default) to the django manage.py, exports an appropriate value
+# for DJANGO_SETTINGS_MODULE, and changes directory into the project's root.
 
 # uncomment set -x and set +x below to turn on bash script debugging
 #set -x
 
-# set DJANGO_PROJECTS_SRC_DIR to where you keep your source.  I use $HOME/src
-if [[ -z "$DJANGO_PROJECTS_SRC_DIR" ]]
-then
-    echo "DJANGO_PROJECTS_SRC_DIR is not defined.  Set in your .bashrc to where you checkout your projects (ie $HOME/src)"
+# set DJANGO_PROJECTS_SRC_DIR to parent directory of all your project sources.  I use $HOME/src
+: "${DJANGO_PROJECTS_SRC_DIR:?"not defined/exported.  Set to parent directory of all your project sources."}" \
+    "${VIRTUAL_ENV:?"not defined/exported.  This script is only intended to run as a postactivate hook."}"
+
+# I tie my project name with my virtualenv name.  If you don't you'll need to 
+# create a lookup table between virtual env name and django project name
+if [[ ! "$(type -t virtual_env_name)" = function ]]
+    function virtual_env_name {
+        declare virtual_env="${1:?argument missing}"
+        basename "$virtual_env"
+    }
 fi
 
-if [[ -z "$DJANGO_VIRTUALENV_NAME_MAP" ]]
-then
-    export DJANGO_VIRTUALENV_NAME_MAP="$HOME/.django-virtualenv-name-map"
-fi
-
-# Simple solution to map virtualenv names to project names hashmap - thanks Al P.
-# http://stackoverflow.com/a/2225712
-hput() {
-    echo "$1 $2" >> $DJANGO_VIRTUALENV_NAME_MAP
-}
-
-hget() {
-    if [[ -e $DJANGO_VIRTUALENV_NAME_MAP ]] 
-    then
-        grep "^$1 " $DJANGO_VIRTUALENV_NAME_MAP | awk '{ print $2 };'
-    else
-        echo ""
-    fi
-}
-
-virtual_env_name=$(basename $VIRTUAL_ENV)
-django_project_name=$(hget $virtual_env_name)
-if [[ -z $django_project_name ]]
-then
-    django_project_name=$virtual_env_name
-fi
-
-django_project_dir="$DJANGO_PROJECTS_SRC_DIR/$django_project_name"
-if [[ -h "$django_project_dir" ]]
-then
-    django_project_dir=$(readlink $django_project_dir)
-fi
-
-# set DJANGO_VIRTUALENVWRAPPER_USER in your .bashrc file if your env USER doesn't
+# export DJANGO_VIRTUALENVWRAPPER_USER in your .bashrc file if your env USER doesn't
 # match your settings user (ie you're using vagrant)
-if [[ -n "$DJANGO_VIRTUALENVWRAPPER_USER" ]]
-then
-    django_user=$DJANGO_VIRTUALENVWRAPPER_USER
-else
-    django_user=$USER
-fi
+declare DJANGO_VIRTUALENVWRAPPER_USER="${DJANGO_VIRTUALENVWRAPPER_USER:-$USER}"
 
-# set DJANGO_MANAGE_PY_ALIAS in your .bashrc file if you'd like to use an alias 
+# export DJANGO_MANAGE_PY_ALIAS in your .bashrc file if you'd like to use an alias 
 # name other than "manage" 
-if [[ -z "$DJANGO_MANAGE_PY_ALIAS" ]]
-then
-    export DJANGO_MANAGE_PY_ALIAS="manage"
-fi
+declare DJANGO_MANAGE_PY_ALIAS="${DJANGO_MANAGE_PY_ALIAS:-manage}"
+
 
 function determine_django_settings_module {
-    dir=$1
-    user=$2
+    declare project_dir="${1:?argument missing}" user="${2?:argument missing}"
  
-    settings_dir_name=$(find $dir -name "settings" -type d)
-    if [ $settings_dir_name ]; then
-        settings_dir_user=$(find $settings_dir_name -name "$user.py" -type f)
-        settings_dir_dev=$(find $settings_dir_name -name "dev.py" -type f)
+    declare settings_dir_name="$(find "$project_dir" -name "settings" -type d)"
+    declare settings_dir_user= settings_dir_dev=
+    if [[ "$settings_dir_name" ]]; then
+        settings_dir_user="$(find "$settings_dir_name" -name "$user.py" -type f)"
+        settings_dir_dev="$(find "$settings_dir_name" -name "dev.py" -type f)"
     fi
 
-    settings_default=$(find $dir -name "settings.py" -type f)
+    declare settings_default="$(find "$project_dir" -name "settings.py" -type f)"
 
-    for django_settings_file in $settings_dir_user $settings_dir_dev $settings_default
+    declare django_settings_file=
+    for django_settings_file in "$settings_dir_user" "$settings_dir_dev" "$settings_default"
     do
-        if [[ ! -z "$django_settings_file" ]]
+        if [[ "$django_settings_file" ]]
         then
             break
         fi
     done
 
-    django_settings_module=${django_settings_file#$dir/}
-    django_settings_module=${django_settings_module%.py}
-    django_settings_module=`echo $django_settings_module | sed 's/\//\./g'`
+    declare django_settings_module="${django_settings_file#$project_dir/}"
+    django_settings_module="${django_settings_module%.py}"
+    django_settings_module="${django_settings_module//\//\./}"
 
-    echo $django_settings_module
+    echo "$django_settings_module"
 }
 
 function determine_django_manage_py {
-    dir=$1
-
-    echo $(find $dir -name "manage.py" -type f)
+    declare project_dir="${1:?argument missing}"
+    find "$project_dir" -name "manage.py" -type f
 }
 
-if [ -d "$django_project_dir" ]
+
+declare django_project_name="$(virtual_env_name "$VIRTUAL_ENV")"
+declare django_project_dir="$DJANGO_PROJECTS_SRC_DIR/$django_project_name"
+while [[ -h "$django_project_dir" ]]
+do
+    django_project_dir="$(readlink "$django_project_dir")"
+done
+
+declare django_manage_py=
+if [[ -d "$django_project_dir" ]]
 then
-    django_manage_py=$(determine_django_manage_py $django_project_dir)
+    django_manage_py="$(determine_django_manage_py "$django_project_dir")"
 fi
 
-if [[ ! -z $django_manage_py ]]
+if [[ "$django_manage_py" ]]
 then
-    django_manage_dir=$(dirname $django_manage_py)
-    django_settings_module=$(determine_django_settings_module $django_manage_dir $django_user)
-
-    alias $DJANGO_MANAGE_PY_ALIAS="python $django_manage_py"
-    export DJANGO_SETTINGS_MODULE="$django_settings_module"
-else
-    unset django_manage_py
+    declare django_manage_dir="$(dirname "$django_manage_py")"
+    export DJANGO_SETTINGS_MODULE="$(determine_django_settings_module \
+            "$django_manage_dir" "$DJANGO_VIRTUALENVWRAPPER_USER")"
+    alias "$DJANGO_MANAGE_PY_ALIAS=python$(printf ' %q' "$django_manage_py")"
+    cd "$django_project_dir"
     unset django_manage_dir
-    unset django_settings_module
 fi
 
-if [[ -d $django_manage_dir ]]
-then
-    cd $django_manage_dir
-elif [[ -d $django_project_dir ]]
-then
-    cd $django_project_dir
-fi
+unset django_project_name django_project_dir django_manage_py
 
 #set +x
 
