@@ -9,11 +9,11 @@ alias $DJANGO_MANAGE_PY_ALIAS="python /absolute/path/to/your/django/projects/man
 export DJANGO_SETTINGS_MODULE="python.module.name.of.your.settings"
 ```
 
-*__Note:__
+*__Note:__*
 
-* DJANGO_MANAGE_PY_ALIAS defaults to __manage__, but you can override this behavior to use
+* *DJANGO_MANAGE_PY_ALIAS defaults to __manage__, but you can override this behavior to use
 any command you want from your .bashrc file.*
-* DJANGO_VIRTUALENV_NAME_MAP defaults to ~/.django-virtualenv-name-map. Override this environment to change the location of the mapping.  The file consists of virtualenv name and django project names seperated by spaces.  [See below](#virtualenv-name-to-django-project-name-mapping) for file format example.
+* *DJANGO_VIRTUALENV_NAME_MAP defaults to ~/.django-virtualenv-name-map. Override this environment to change the location of the mapping.  The file consists of virtualenv name and django project names seperated by spaces.  [See below](#virtualenv-name-to-django-project-name-mapping) for file format example.*
 
 
 ### Installation ###
