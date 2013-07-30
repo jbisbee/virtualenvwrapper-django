@@ -72,6 +72,10 @@ function determine_django_manage_py {
 if [ -d "$django_project_dir" ]
 then
     django_manage_py=$(determine_django_manage_py $django_project_dir)
+fi
+
+if [[ ! -z $django_manage_py ]]
+then
     django_manage_dir=$(dirname $django_manage_py)
     django_settings_module=$(determine_django_settings_module $django_manage_dir $django_user)
 

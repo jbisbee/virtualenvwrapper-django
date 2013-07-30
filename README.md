@@ -110,6 +110,16 @@ unalias $DJANGO_MANAGE_PY_ALIAS >/dev/null 2>/dev/null
 
 ### Change Log ###
 
+**v1.3**
+* Fixed bug if manage.py was not located in the root project directory.  Settings was
+  correctly evaluated in this case to the wrong module name (mysite.mysite.settings instead
+  of mysite.settings)
+* Added an install.sh script that makes the install process easier.  You just need to set
+  the DJANGO_PROJECTS_SRC_DIR variable for context, checkout the project in that directory
+  and then run the install script.
+* Feedback from a friend telling me I'm a bash newbie.  I was quoting bash variables when 
+  I didn't need to.  (${1} should have just been $1, etc)
+
 **v1.2**
 * Added DJANGO_PROJECTS_SRC_DIR as a .bashrc override because I mistakenly assumed everyone
   uses $HOME/src to store their source code.
@@ -133,4 +143,6 @@ unalias $DJANGO_MANAGE_PY_ALIAS >/dev/null 2>/dev/null
   install instructions.
 * **Ethan Soergel** - pointing me to his similar project called EmceeVirtualEnv on github and giving me
   the idea for the DJANGO_MANAGE_PY_ALIAS variable (able to override the alias)
+* **Rafal Muszynski** - great feedback on the install process plus feedback on my less than
+  spectacular bash skills.  He's my full blooded Polish brother.  Thanks Polish Hammer!
 
