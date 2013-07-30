@@ -56,7 +56,7 @@ installing virtualenvwrapper-django postactivate
 installing virtualenvwrapper-django postdeactivate
 ```
 
-**6. Now cat each file to make sure you accidently append it twice. Sould look something like this.**
+**6. Now cat each file. Sould look something like this.**
 
 ```console
 jbisbee@tacquito:~/src$ cat $WORKON_HOME/postactivate
@@ -64,11 +64,13 @@ jbisbee@tacquito:~/src$ cat $WORKON_HOME/postactivate
 # This hook is run after every virtualenv is activated.
 
 source /home/jbisbee/src/virtualenvwrapper-django/postactivate
+
 jbisbee@tacquito:~/src$ cat $WORKON_HOME/postdeactivate
 #!/bin/bash
 # This hook is run after every virtualenv is deactivated.
 
 source /home/jbisbee/src/virtualenvwrapper-django/postdeactivate
+
 ```
 
 **7. You're done!**
