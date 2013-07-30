@@ -120,7 +120,9 @@ I made a big assumption when I originally wrote this extension that everyone wou
 I created a new environment variable called DJANGO_VIRTUALENV_NAME_MAP that defaults to $HOME/.django-virtualenv-name-map that you're free to override.  The file contents are as follows
 
 ```bash
-# \$HOME/.django-virtualenv-name-map
+# $HOME/.django-virtualenv-name-map
+
+# virtualenv-name django-project-name
 sparky sparky-django
 union unionweb
 ```
