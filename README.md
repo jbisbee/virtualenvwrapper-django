@@ -40,11 +40,16 @@ jbisbee@tacquito:~$ cd $DJANGO_PROJECTS_SRC_DIR
 jbisbee@tacquito:~/src$ git clone https://github.com/jbisbee/virtualenvwrapper-django.git
 ```
 
-**5. Append supplement existings hooks with bash source commands to the ones within the project**
+**5. Run the install script**
+
+This install script simply ads a bash source line in virtualenvwrapper's postactivate and
+postdeactivate hook files to source the postactivate and postdeactive from this project.  You don't
+like it or its buggy, just comment out or remove the one source line.
 
 ```console
-jbisbee@tacquito:~/src$ echo "source $DJANGO_PROJECTS_SRC_DIR/virtualenvwrapper-django/postactivate" >> $WORKON_HOME/postactivate
-jbisbee@tacquito:~/src$ echo "source $DJANGO_PROJECTS_SRC_DIR/virtualenvwrapper-django/postdeactivate" >> $WORKON_HOME/postdeactivate
+jbisbee@tacquito:~/src$ $DJANGO_PROJECTS_SRC_DIR/virtualenvwrapper-django/install.sh
+installing virtualenvwrapper-django postactivate
+installing virtualenvwrapper-django postdeactivate
 ```
 
 **6. Now cat each file to make sure you accidently append it twice. Sould look something like this.**
