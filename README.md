@@ -113,7 +113,7 @@ unalias $DJANGO_MANAGE_PY_ALIAS >/dev/null 2>/dev/null
 *__Disclaimer:__ If you manage your Django project's settings differently let me know. I'd love to make the determine_django_module_settings more flexible and patches are more than welcome!*
 
 
-### <a id="name-map-format"></a>Virtualenv name to Django Project Name Mapping ###
+### <a name="name-map-format"></a>Virtualenv name to Django Project Name Mapping ###
 
 I made a big assumption when I originally wrote this extension that everyone would make their virtualenv names and project names the same.  I quickly found out this was not the case from two of my coworkers and I promised myself I would finally fix this problem.
 
