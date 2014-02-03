@@ -66,12 +66,11 @@ function determine_django_settings_module {
     settings_dir_name=$(find $dir -name "settings" -type d)
     if [ $settings_dir_name ]; then
         settings_dir_user=$(find $settings_dir_name -name "$user.py" -type f)
-        settings_dir_dev=$(find $settings_dir_name -name "dev.py" -type f)
     fi
 
     settings_default=$(find $dir -name "settings.py" -type f)
 
-    for django_settings_file in $settings_dir_user $settings_dir_dev $settings_default
+    for django_settings_file in $settings_dir_user $settings_default
     do
         if [[ ! -z "$django_settings_file" ]]
         then

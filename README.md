@@ -86,14 +86,12 @@ you John Barry (via Google+) for the idea for these instructions!*
 The current function looks for settings in the following locations. 
 
 1. django\_project\_dir/\*/settings/USER.py
-2. django\_project\_dir/\*/settings/dev.py
 3. django\_project\_dir/\*/settings.py
 
 *The USER environment variable may be overridden with the DJANGO_VIRTUALENVWRAPPER_USER from your .bashrc file (in case you use vagrant like me)*
 
 ```bash
 export DJANGO_SETTINGS_MODULE="spock.settings.jbisbee"
-export DJANGO_SETTINGS_MODULE="spock.settings.dev"
 export DJANGO_SETTINGS_MODULE="spock.settings"
 ```
 
